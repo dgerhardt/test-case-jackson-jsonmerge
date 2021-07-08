@@ -1,10 +1,8 @@
-import com.fasterxml.jackson.annotation.JsonMerge;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.Assertions;
@@ -15,7 +13,7 @@ public class JacksonJsonMergeNested {
     public void testJacksonListNoMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
-        mapper.configOverride(Collection.class).setMergeable(false);
+        mapper.configOverride(Map.class).setMergeable(true);
         mapper.configOverride(List.class).setMergeable(false);
         final WithNestedList obj = new WithNestedList();
         final List list1 = new ArrayList(List.of("A", "B", "C"));
@@ -36,7 +34,7 @@ public class JacksonJsonMergeNested {
     public void testJacksonNestedListNoMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
-        mapper.configOverride(Collection.class).setMergeable(false);
+        mapper.configOverride(Map.class).setMergeable(true);
         mapper.configOverride(List.class).setMergeable(false);
         final WithNestedList obj = new WithNestedList();
         final List list1 = new ArrayList(List.of("A", "B", "C"));
@@ -57,7 +55,7 @@ public class JacksonJsonMergeNested {
         private String id;
         private String someProperty;
         private List<String> list;
-        @JsonMerge private Map<String, List<String>> nestedList;
+        private Map<String, List<String>> nestedList;
 
         public String getId() {
             return id;
