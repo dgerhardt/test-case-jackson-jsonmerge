@@ -1,0 +1,3 @@
+# Test Case: Jackson JsonMerge with Lists nested in Maps
+
+`./gradlew test`
