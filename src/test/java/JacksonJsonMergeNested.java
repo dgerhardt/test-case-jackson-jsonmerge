@@ -19,8 +19,8 @@ public class JacksonJsonMergeNested {
         mapper.configOverride(Map.class).setMergeable(true);
         mapper.configOverride(List.class).setMergeable(false);
         final WithNestedList obj = new WithNestedList();
-        final List list1 = new ArrayList(List.of("A", "B", "C"));
-        final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
+        final List list1 = List.of("A", "B", "C");
+        final List list2 = List.of("C", "D", "E", "F", "G");
         obj.id = "ID";
         obj.list = list1;
         final Map<String, Object> mapForUpdate = Map.of(
@@ -41,10 +41,10 @@ public class JacksonJsonMergeNested {
         mapper.configOverride(Map.class).setMergeable(true);
         mapper.configOverride(List.class).setMergeable(false);
         final WithNestedList obj = new WithNestedList();
-        final List list1 = new ArrayList(List.of("A", "B", "C"));
-        final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
+        final List list1 = List.of("A", "B", "C");
+        final List list2 = List.of("C", "D", "E", "F", "G");
         obj.id = "ID";
-        obj.nestedList = Map.of("test", list1);
+        obj.nestedList = Map.of("test", new ArrayList<>(List.copyOf(list1)));
         final Map<String, Object> mapForUpdate = Map.of(
                 "someProperty", "updatedValue",
                 "nestedList", Map.of("test", list2)
@@ -107,10 +107,10 @@ public class JacksonJsonMergeNested {
         mapper.configOverride(HashMap.class).setMergeable(true);
         mapper.configOverride(ArrayList.class).setMergeable(false);
         final WithNestedList obj = new WithNestedList();
-        final ArrayList list1 = new ArrayList(List.of("A", "B", "C"));
-        final ArrayList list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
+        final List list1 = List.of("A", "B", "C");
+        final List list2 = List.of("C", "D", "E", "F", "G");
         obj.id = "ID";
-        obj.specificImplNestedList = new HashMap(Map.of("test", list1));
+        obj.specificImplNestedList = new HashMap(Map.of("test", new ArrayList<>(List.copyOf(list1))));
         final HashMap<String, Object> mapForUpdate = new HashMap(Map.of(
                 "someProperty", "updatedValue",
                 "specificImplNestedList", Map.of("test", list2)
@@ -130,10 +130,10 @@ public class JacksonJsonMergeNested {
         mapper.configOverride(List.class).setMergeable(false);
         mapper.configOverride(CustomHashMap.class).setMergeable(true);
         final WithNestedList obj = new WithNestedList();
-        final List list1 = new ArrayList(List.of("A", "B", "C"));
-        final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
+        final List list1 = List.of("A", "B", "C");
+        final List list2 = List.of("C", "D", "E", "F", "G");
         obj.id = "ID";
-        obj.customMapNestedList = new CustomHashMap(Map.of("test", list1));
+        obj.customMapNestedList = new CustomHashMap(Map.of("test", new ArrayList<>(List.copyOf(list1))));
         final CustomHashMap<String, Object> mapForUpdate = new CustomHashMap(Map.of(
                 "someProperty", "updatedValue",
                 "customMapNestedList", Map.of("test", list2)
