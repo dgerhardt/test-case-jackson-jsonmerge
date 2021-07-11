@@ -22,7 +22,7 @@ public class JacksonJsonMergeNested {
         final List list1 = new ArrayList(List.of("A", "B", "C"));
         final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
         obj.id = "ID";
-        obj.setList(list1);
+        obj.list = list1;
         final Map<String, Object> mapForUpdate = Map.of(
                 "someProperty", "updatedValue",
                 "list", list2
@@ -30,8 +30,8 @@ public class JacksonJsonMergeNested {
         final ObjectReader reader = mapper.readerForUpdating(obj);
         final JsonNode tree = mapper.valueToTree(mapForUpdate);
         final WithNestedList updatedObj = reader.readValue(tree);
-        Assertions.assertEquals("ID", updatedObj.getId());
-        Assertions.assertEquals(list2, updatedObj.getList());
+        Assertions.assertEquals("ID", updatedObj.id);
+        Assertions.assertEquals(list2, updatedObj.list);
     }
 
     @Test
@@ -44,7 +44,7 @@ public class JacksonJsonMergeNested {
         final List list1 = new ArrayList(List.of("A", "B", "C"));
         final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
         obj.id = "ID";
-        obj.setNestedList(Map.of("test", list1));
+        obj.nestedList = Map.of("test", list1);
         final Map<String, Object> mapForUpdate = Map.of(
                 "someProperty", "updatedValue",
                 "nestedList", Map.of("test", list2)
@@ -52,8 +52,8 @@ public class JacksonJsonMergeNested {
         final ObjectReader reader = mapper.readerForUpdating(obj);
         final JsonNode tree = mapper.valueToTree(mapForUpdate);
         final WithNestedList updatedObj = reader.readValue(tree);
-        Assertions.assertEquals("ID", updatedObj.getId());
-        Assertions.assertEquals(list2, updatedObj.getNestedList().get("test"));
+        Assertions.assertEquals("ID", updatedObj.id);
+        Assertions.assertEquals(list2, updatedObj.nestedList.get("test"));
     }
 
     @Test
@@ -64,7 +64,7 @@ public class JacksonJsonMergeNested {
         final List list1 = new ArrayList(List.of("A", "B", "C"));
         final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
         obj.id = "ID";
-        obj.setNestedList(Map.of("test", list1));
+        obj.nestedList = Map.of("test", list1);
         final Map<String, Object> mapForUpdate = Map.of(
                 "someProperty", "updatedValue",
                 "nestedList", Map.of("test", list2)
@@ -72,10 +72,10 @@ public class JacksonJsonMergeNested {
         final ObjectReader reader = mapper.readerForUpdating(obj);
         final JsonNode tree = mapper.valueToTree(mapForUpdate);
         final WithNestedList updatedObj = reader.readValue(tree);
-        Assertions.assertEquals("ID", updatedObj.getId());
+        Assertions.assertEquals("ID", updatedObj.id);
         Assertions.assertEquals(
                 Stream.concat(list1.stream(), list2.stream()).collect(Collectors.toList()),
-                updatedObj.getNestedList().get("test"));
+                updatedObj.nestedList.get("test"));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class JacksonJsonMergeNested {
         final List list1 = new ArrayList(List.of("A", "B", "C"));
         final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
         obj.id = "ID";
-        obj.setNestedObjects(Map.of("test", list1));
+        obj.nestedList = Map.of("test", list1);
         final Map<String, Object> mapForUpdate = Map.of(
                 "someProperty", "updatedValue",
                 "nestedObjects", Map.of("test", list2)
@@ -96,8 +96,8 @@ public class JacksonJsonMergeNested {
         final ObjectReader reader = mapper.readerForUpdating(obj);
         final JsonNode tree = mapper.valueToTree(mapForUpdate);
         final WithNestedList updatedObj = reader.readValue(tree);
-        Assertions.assertEquals("ID", updatedObj.getId());
-        Assertions.assertEquals(list2, updatedObj.getNestedObjects().get("test"));
+        Assertions.assertEquals("ID", updatedObj.id);
+        Assertions.assertEquals(list2, updatedObj.nestedObjects.get("test"));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class JacksonJsonMergeNested {
         final ArrayList list1 = new ArrayList(List.of("A", "B", "C"));
         final ArrayList list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
         obj.id = "ID";
-        obj.setSpecificImplNestedList(new HashMap(Map.of("test", list1)));
+        obj.specificImplNestedList = new HashMap(Map.of("test", list1));
         final HashMap<String, Object> mapForUpdate = new HashMap(Map.of(
                 "someProperty", "updatedValue",
                 "specificImplNestedList", Map.of("test", list2)
@@ -118,8 +118,8 @@ public class JacksonJsonMergeNested {
         final ObjectReader reader = mapper.readerForUpdating(obj);
         final JsonNode tree = mapper.valueToTree(mapForUpdate);
         final WithNestedList updatedObj = reader.readValue(tree);
-        Assertions.assertEquals("ID", updatedObj.getId());
-        Assertions.assertEquals(list2, updatedObj.getSpecificImplNestedList().get("test"));
+        Assertions.assertEquals("ID", updatedObj.id);
+        Assertions.assertEquals(list2, updatedObj.specificImplNestedList.get("test"));
     }
 
     @Test
@@ -133,7 +133,7 @@ public class JacksonJsonMergeNested {
         final List list1 = new ArrayList(List.of("A", "B", "C"));
         final List list2 = new ArrayList(List.of("C", "D", "E", "F", "G"));
         obj.id = "ID";
-        obj.setCustomMapNestedList(new CustomHashMap(Map.of("test", list1)));
+        obj.customMapNestedList = new CustomHashMap(Map.of("test", list1));
         final CustomHashMap<String, Object> mapForUpdate = new CustomHashMap(Map.of(
                 "someProperty", "updatedValue",
                 "customMapNestedList", Map.of("test", list2)
@@ -141,74 +141,18 @@ public class JacksonJsonMergeNested {
         final ObjectReader reader = mapper.readerForUpdating(obj);
         final JsonNode tree = mapper.valueToTree(mapForUpdate);
         final WithNestedList updatedObj = reader.readValue(tree);
-        Assertions.assertEquals("ID", updatedObj.getId());
-        Assertions.assertEquals(list2, updatedObj.getCustomMapNestedList().get("test"));
+        Assertions.assertEquals("ID", updatedObj.id);
+        Assertions.assertEquals(list2, updatedObj.customMapNestedList.get("test"));
     }
 
     private static class WithNestedList {
-        private String id;
-        private String someProperty;
-        private List<String> list;
-        private Map<String, List<String>> nestedList;
-        private HashMap<String, ArrayList<String>> specificImplNestedList;
-        private CustomHashMap<String, List<String>> customMapNestedList;
-        private Map<String, Object> nestedObjects;
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(final String id) {
-            this.id = id;
-        }
-
-        public String getSomeProperty() {
-            return someProperty;
-        }
-
-        public void setSomeProperty(final String someProperty) {
-            this.someProperty = someProperty;
-        }
-
-        public List<String> getList() {
-            return list;
-        }
-
-        public void setList(final List<String> list) {
-            this.list = list;
-        }
-
-        public Map<String, List<String>> getNestedList() {
-            return nestedList;
-        }
-
-        public void setNestedList(final Map<String, List<String>> nestedList) {
-            this.nestedList = nestedList;
-        }
-
-        public HashMap<String, ArrayList<String>> getSpecificImplNestedList() {
-            return specificImplNestedList;
-        }
-
-        public void setSpecificImplNestedList(final HashMap<String, ArrayList<String>> specificImplNestedList) {
-            this.specificImplNestedList = specificImplNestedList;
-        }
-
-        public CustomHashMap<String, List<String>> getCustomMapNestedList() {
-            return customMapNestedList;
-        }
-
-        public void setCustomMapNestedList(final CustomHashMap<String, List<String>> customMapNestedList) {
-            this.customMapNestedList = customMapNestedList;
-        }
-
-        public Map<String, Object> getNestedObjects() {
-            return nestedObjects;
-        }
-
-        public void setNestedObjects(final Map<String, Object> nestedObjects) {
-            this.nestedObjects = nestedObjects;
-        }
+        public String id;
+        public String someProperty;
+        public List<String> list;
+        public Map<String, List<String>> nestedList;
+        public HashMap<String, ArrayList<String>> specificImplNestedList;
+        public CustomHashMap<String, List<String>> customMapNestedList;
+        public Map<String, Object> nestedObjects;
     }
 
     private static class CustomHashMap<K, V> extends HashMap<K, V> {
