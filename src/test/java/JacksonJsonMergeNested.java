@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 public class JacksonJsonMergeNested {
     @Test
-    public void testJacksonListNoMerge() throws IOException {
+    public void testJacksonListShouldNotMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
         mapper.configOverride(Map.class).setMergeable(true);
@@ -35,7 +35,7 @@ public class JacksonJsonMergeNested {
     }
 
     @Test
-    public void testJacksonNestedListNoMerge() throws IOException {
+    public void testJacksonNestedListShouldNotMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
         mapper.configOverride(Map.class).setMergeable(true);
@@ -79,7 +79,7 @@ public class JacksonJsonMergeNested {
     }
 
     @Test
-    public void testJacksonNestedListObjectTypeMerge() throws IOException {
+    public void testJacksonNestedListObjectTypeShouldNotMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
         mapper.configOverride(Map.class).setMergeable(true);
@@ -101,7 +101,7 @@ public class JacksonJsonMergeNested {
     }
 
     @Test
-    public void testJacksonNestedListNoMergeOverrideForImpl() throws IOException {
+    public void testJacksonNestedListWithOverrideForImplShouldNotMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
         mapper.configOverride(HashMap.class).setMergeable(true);
@@ -123,7 +123,7 @@ public class JacksonJsonMergeNested {
     }
 
     @Test
-    public void testJacksonCustomMapNestedListNoMerge() throws IOException {
+    public void testJacksonCustomMapNestedListShouldNotMerge() throws IOException {
         final ObjectMapper mapper = new ObjectMapper();
         mapper.setDefaultMergeable(false);
         mapper.configOverride(Map.class).setMergeable(false);
